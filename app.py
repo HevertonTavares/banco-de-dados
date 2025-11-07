@@ -5,14 +5,14 @@ import io
 
 st.title("📊 Relatório de Contatos Técnicos")
 
-# Carregando a planilha do Google Sheets
+# Puxar da planilha do google sheets
 sheet_id = "1o8WxZootUshy8F7gFMEmmIxDGONtvGvxKjCvBJdgTEI"
 aba = "Relat%C3%B3rio%20Contatos%20Tech"
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={aba}"
 df = pd.read_csv(url)
 df.columns = df.columns.str.strip()
 
-# Entrada de IDs
+# Entrada dos IDs
 ids_input = st.text_area("Cole os User ID Appmax (separados por vírgula, espaço ou enter):")
 
 if st.button("🔍 Pesquisar"):
@@ -28,7 +28,7 @@ if st.button("🔍 Pesquisar"):
         encontrados = df[df["User ID Appmax"].isin(ids)]
         nao_encontrados = list(set(ids) - set(encontrados["User ID Appmax"]))
 
-        # Exibe resultados encontrados
+        # Vai exibir os resultados encontrados
         colunas_desejadas = [
             "Nome",
             "E-mail",
@@ -47,7 +47,7 @@ if st.button("🔍 Pesquisar"):
             st.warning(f"{len(nao_encontrados)} IDs não localizados:")
             st.code("\n".join(nao_encontrados), language='text')
 
-        # Exporta para Excel
+        # Exportar para Excel
         excel_buffer = io.BytesIO()
         with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
             resultado.to_excel(writer, index=False, sheet_name='Resultados')
