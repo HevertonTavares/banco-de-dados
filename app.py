@@ -3,7 +3,7 @@ import streamlit as st
 import re
 import io
 
-st.title("📊 Relatório de Contatos Técnicos")
+st.title("Relatório de Contatos Técnicos")
 
 # Puxar da planilha do google sheets
 sheet_id = "1o8WxZootUshy8F7gFMEmmIxDGONtvGvxKjCvBJdgTEI"
